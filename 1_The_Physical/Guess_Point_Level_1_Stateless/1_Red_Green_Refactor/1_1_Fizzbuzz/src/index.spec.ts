@@ -22,4 +22,11 @@ describe("fizzbuzz", () => {
       expect(fizzbuzz(x)).toBe("FizzBuzz");
     }
   );
+
+  it.each([-1000000, -1, 0, 101, 1000000])(
+    "should not accept numbers less than 1 or greater than 100",
+    (x) => {
+      expect(() => fizzbuzz(x)).toThrow("Number must be from 1 to 100");
+    }
+  );
 });
