@@ -11,4 +11,8 @@ describe("fizzbuzz", () => {
   it.each([3, 6, 9])("should change multiples of 3 to 'Fizz'", (x) => {
     expect(fizzbuzz(x)).toBe("Fizz");
   });
+
+  it.each([5, 10, 20])("should change multiples of 5 to 'Buzz'", (x) => {
+    expect(fizzbuzz(x)).toBe("Buzz");
+  });
 });
