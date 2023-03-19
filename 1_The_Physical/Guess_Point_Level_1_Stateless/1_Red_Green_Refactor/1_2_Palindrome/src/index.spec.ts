@@ -8,4 +8,8 @@ describe("palindrome checker", () => {
   it.each(["tin", "ant"])("should return false for non-palindromes", (x) => {
     expect(palindrome(x)).toBe(false);
   });
+
+  it.each(["Mom", "wOw"])("should be case insensitive", (x) => {
+    expect(palindrome(x)).toBe(true);
+  });
 });

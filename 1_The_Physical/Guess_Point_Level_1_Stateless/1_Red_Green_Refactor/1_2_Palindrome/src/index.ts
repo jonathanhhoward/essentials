@@ -1,3 +1,4 @@
 export function palindrome(phrase: string): boolean {
-  return phrase === phrase.split("").reverse().join("");
+  const normalise = phrase.toLowerCase();
+  return normalise === normalise.split("").reverse().join("");
 }
