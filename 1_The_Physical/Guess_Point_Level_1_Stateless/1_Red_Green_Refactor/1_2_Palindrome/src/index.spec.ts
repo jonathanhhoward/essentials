@@ -12,4 +12,11 @@ describe("palindrome checker", () => {
   it.each(["Mom", "wOw"])("should be case insensitive", (x) => {
     expect(palindrome(x)).toBe(true);
   });
+
+  it.each(["Was It A Rat I Saw", "Never Odd or Even"])(
+    "should work on phrases",
+    (x) => {
+      expect(palindrome(x)).toBe(true);
+    }
+  );
 });
