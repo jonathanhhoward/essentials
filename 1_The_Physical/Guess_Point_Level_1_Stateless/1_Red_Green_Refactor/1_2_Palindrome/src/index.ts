@@ -1,3 +1,3 @@
 export function palindrome(phrase: string): boolean {
-  return true;
+  return phrase === phrase.split("").reverse().join("");
 }
