@@ -21,7 +21,14 @@ describe("boolean calculator", () => {
       ["TRUE AND FALSE", false],
       ["FALSE AND TRUE", false],
       ["FALSE AND FALSE", false],
+      ["TRUE AND TRUE AND TRUE", true],
+      ["FALSE AND TRUE AND TRUE", false],
+      ["TRUE AND FALSE AND TRUE", false],
       ["TRUE AND TRUE AND FALSE", false],
+      ["FALSE AND FALSE AND FALSE", false],
+      ["NOT FALSE AND TRUE", true],
+      ["TRUE AND NOT TRUE", false],
+      ["NOT FALSE AND NOT FALSE", true],
     ])("should evaluate '%s' as %s", (expression, expected) => {
       expect(calculate(expression)).toBe(expected);
     });
