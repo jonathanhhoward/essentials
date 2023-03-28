@@ -14,13 +14,12 @@
 export function calculate(expr: string): boolean {
   const tokens = expr.split(" ");
 
-  if (tokens.length === 3) {
-    const left = primary();
+  let term = primary();
+  while (tokens.length) {
     tokens.shift();
-    const right = primary();
-    return left && right;
+    term &&= primary();
   }
-  return primary();
+  return term;
 
   function primary(): boolean {
     const token = tokens.shift();
