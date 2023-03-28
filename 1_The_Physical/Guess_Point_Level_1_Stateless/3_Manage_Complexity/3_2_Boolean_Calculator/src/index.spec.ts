@@ -8,4 +8,8 @@ describe("boolean calculator", () => {
   it("should evaluate 'FALSE' as false", () => {
     expect(calculate("FALSE")).toBe(false);
   });
+
+  it("should throw for invalid literal", () => {
+    expect(() => calculate("invalid")).toThrow("invalid literal");
+  });
 });

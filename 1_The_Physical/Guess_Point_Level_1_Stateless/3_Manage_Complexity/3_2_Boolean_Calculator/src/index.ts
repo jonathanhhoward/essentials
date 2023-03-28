@@ -12,6 +12,7 @@
  */
 
 export function calculate(expr: string): boolean {
+  if (expr === "TRUE") return true;
   if (expr === "FALSE") return false;
-  return true;
+  throw TypeError("invalid literal");
 }
