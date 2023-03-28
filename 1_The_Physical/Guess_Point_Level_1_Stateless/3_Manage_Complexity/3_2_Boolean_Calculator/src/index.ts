@@ -13,8 +13,14 @@
 
 export function calculate(expr: string): boolean {
   const tokens = expr.split(" ");
-  if (tokens[0] === "NOT") return !calculate(tokens[1]);
-  if (tokens[0] === "TRUE") return true;
-  if (tokens[0] === "FALSE") return false;
-  throw TypeError("invalid literal");
+
+  return primary();
+
+  function primary(): boolean {
+    const token = tokens.shift();
+    if (token === "NOT") return !primary();
+    if (token === "TRUE") return true;
+    if (token === "FALSE") return false;
+    throw TypeError("invalid literal");
+  }
 }
