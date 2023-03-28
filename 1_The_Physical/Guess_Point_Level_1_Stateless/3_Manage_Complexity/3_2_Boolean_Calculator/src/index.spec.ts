@@ -16,8 +16,13 @@ describe("boolean calculator", () => {
   });
 
   describe("term", () => {
-    it("should evaluate 'TRUE AND FALSE' as false", () => {
-      expect(calculate("TRUE AND FALSE")).toBe(false);
+    it.each([
+      ["TRUE AND TRUE", true],
+      ["TRUE AND FALSE", false],
+      ["FALSE AND TRUE", false],
+      ["FALSE AND FALSE", false],
+    ])("should evaluate '%s' as %s", (expression, expected) => {
+      expect(calculate(expression)).toBe(expected);
     });
   });
 });
