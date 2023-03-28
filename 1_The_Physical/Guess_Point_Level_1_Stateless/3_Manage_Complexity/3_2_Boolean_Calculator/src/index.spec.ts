@@ -14,4 +14,10 @@ describe("boolean calculator", () => {
       expect(() => calculate("invalid")).toThrow("invalid literal");
     });
   });
+
+  describe("term", () => {
+    it("should evaluate 'TRUE AND FALSE' as false", () => {
+      expect(calculate("TRUE AND FALSE")).toBe(false);
+    });
+  });
 });
