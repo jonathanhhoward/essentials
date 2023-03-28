@@ -12,7 +12,9 @@
  */
 
 export function calculate(expr: string): boolean {
-  if (expr === "TRUE") return true;
-  if (expr === "FALSE") return false;
+  const tokens = expr.split(" ");
+  if (tokens[0] === "NOT") return !calculate(tokens[1]);
+  if (tokens[0] === "TRUE") return true;
+  if (tokens[0] === "FALSE") return false;
   throw TypeError("invalid literal");
 }

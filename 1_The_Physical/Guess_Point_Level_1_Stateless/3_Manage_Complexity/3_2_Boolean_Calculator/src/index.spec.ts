@@ -12,4 +12,8 @@ describe("boolean calculator", () => {
   it("should throw for invalid literal", () => {
     expect(() => calculate("invalid")).toThrow("invalid literal");
   });
+
+  it("should evaluate 'NOT TRUE' as false", () => {
+    expect(calculate("NOT TRUE")).toBe(false);
+  });
 });
