@@ -35,8 +35,13 @@ describe("boolean calculator", () => {
   });
 
   describe("expression", () => {
-    it("should evaluate 'FALSE OR TRUE' as true", () => {
-      expect(calculate("FALSE OR TRUE")).toBe(true);
+    it.each([
+      ["TRUE OR TRUE", true],
+      ["TRUE OR FALSE", true],
+      ["FALSE OR TRUE", true],
+      ["FALSE OR FALSE", false],
+    ])("should evaluate '%s' as %s", (expression, expected) => {
+      expect(calculate(expression)).toBe(expected);
     });
   });
 });
