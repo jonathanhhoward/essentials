@@ -14,13 +14,23 @@
 export function calculate(expr: string): boolean {
   const tokens = expr.split(" ");
 
-  return term();
+  let expression = term();
+  const token = tokens.shift();
+  if (token === "OR") {
+    expression ||= term();
+  }
+  return expression;
 
   function term() {
     let left = primary();
     while (tokens.length) {
-      tokens.shift();
-      left &&= primary();
+      const token = tokens.shift();
+      if (token === "AND") {
+        left &&= primary();
+      } else {
+        token && tokens.unshift(token);
+        return left;
+      }
     }
     return left;
   }

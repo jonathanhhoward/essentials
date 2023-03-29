@@ -33,4 +33,10 @@ describe("boolean calculator", () => {
       expect(calculate(expression)).toBe(expected);
     });
   });
+
+  describe("expression", () => {
+    it("should evaluate 'FALSE OR TRUE' as true", () => {
+      expect(calculate("FALSE OR TRUE")).toBe(true);
+    });
+  });
 });
