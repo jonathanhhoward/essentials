@@ -15,9 +15,11 @@ export function calculate(expr: string): boolean {
   const tokens = expr.split(" ");
 
   let expression = term();
-  const token = tokens.shift();
-  if (token === "OR") {
-    expression ||= term();
+  while (tokens.length) {
+    const token = tokens.shift();
+    if (token === "OR") {
+      expression ||= term();
+    }
   }
   return expression;
 
