@@ -52,4 +52,19 @@ describe("boolean calculator", () => {
       expect(calculate(expression)).toBe(expected);
     });
   });
+
+  describe("'OR' combined with 'AND'", () => {
+    it.each([
+      ["TRUE AND FALSE OR FALSE AND FALSE", false],
+      ["FALSE AND TRUE OR FALSE AND FALSE", false],
+      ["FALSE AND FALSE OR TRUE AND FALSE", false],
+      ["FALSE AND FALSE OR FALSE AND TRUE", false],
+      ["TRUE OR FALSE AND FALSE OR FALSE", true],
+      ["FALSE OR TRUE AND FALSE OR FALSE", false],
+      ["FALSE OR FALSE AND TRUE OR FALSE", false],
+      ["FALSE OR FALSE AND FALSE OR TRUE", true],
+    ])("should evaluate '%s' AS %s", (expression, expected) => {
+      expect(calculate(expression)).toBe(expected);
+    });
+  });
 });

@@ -18,7 +18,8 @@ export function calculate(expr: string): boolean {
   while (tokens.length) {
     const token = tokens.shift();
     if (token === "OR") {
-      expression ||= term();
+      const right = term();
+      expression ||= right;
     }
   }
   return expression;
@@ -28,7 +29,8 @@ export function calculate(expr: string): boolean {
     while (tokens.length) {
       const token = tokens.shift();
       if (token === "AND") {
-        left &&= primary();
+        const right = primary();
+        left &&= right;
       } else {
         token && tokens.unshift(token);
         return left;
