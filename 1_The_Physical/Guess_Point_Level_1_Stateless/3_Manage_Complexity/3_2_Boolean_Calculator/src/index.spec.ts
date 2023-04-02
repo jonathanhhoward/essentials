@@ -69,8 +69,12 @@ describe("boolean calculator", () => {
   });
 
   describe("parentheses", () => {
-    it("should evaluate '(TRUE OR FALSE) AND FALSE' as false", () => {
-      expect(calculate("(TRUE OR FALSE) AND FALSE")).toBe(false);
+    it.each([
+      ["(TRUE OR FALSE) AND FALSE", false],
+      ["FALSE AND (TRUE OR FALSE)", false],
+      ["NOT (FALSE AND FALSE)", true],
+    ])("should evaluate '%s' as %s", (expression, expected) => {
+      expect(calculate(expression)).toBe(expected);
     });
 
     it("should throw if ')' is missing", () => {
