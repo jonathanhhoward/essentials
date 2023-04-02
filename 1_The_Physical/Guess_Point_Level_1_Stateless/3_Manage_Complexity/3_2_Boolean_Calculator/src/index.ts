@@ -12,7 +12,7 @@
  */
 
 export function calculate(expr: string): boolean {
-  const tokens = expr.replace(/\(\b/, "( ").replace(/\b\)/, " )").split(" ");
+  const tokens = expr.replace(/\(\b/g, "( ").replace(/\b\)/g, " )").split(" ");
 
   return expression();
 
