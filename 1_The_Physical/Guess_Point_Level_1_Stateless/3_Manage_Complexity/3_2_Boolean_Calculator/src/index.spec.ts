@@ -67,4 +67,10 @@ describe("boolean calculator", () => {
       expect(calculate(expression)).toBe(expected);
     });
   });
+
+  describe("parentheses", () => {
+    it("should evaluate '(TRUE OR FALSE) AND FALSE' as false", () => {
+      expect(calculate("(TRUE OR FALSE) AND FALSE")).toBe(false);
+    });
+  });
 });

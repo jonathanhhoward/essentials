@@ -12,21 +12,27 @@
  */
 
 export function calculate(expr: string): boolean {
-  const tokens = expr.split(" ");
+  const tokens = expr.replace(/\(\b/, "( ").replace(/\b\)/, " )").split(" ");
 
-  let expression = term();
-  while (tokens.length) {
-    const token = tokens.shift();
-    if (token === "OR") {
-      const right = term();
-      expression ||= right;
+  return expression();
+
+  function expression() {
+    let left = term();
+    while (true) {
+      const token = tokens.shift();
+      if (token === "OR") {
+        const right = term();
+        left ||= right;
+      } else {
+        token && tokens.unshift(token);
+        return left;
+      }
     }
   }
-  return expression;
 
   function term() {
     let left = primary();
-    while (tokens.length) {
+    while (true) {
       const token = tokens.shift();
       if (token === "AND") {
         const right = primary();
@@ -36,11 +42,14 @@ export function calculate(expr: string): boolean {
         return left;
       }
     }
-    return left;
   }
 
   function primary(): boolean {
     const token = tokens.shift();
+    if (token === "(") {
+      const literal = expression();
+      if (tokens.shift() === ")") return literal;
+    }
     if (token === "NOT") return !primary();
     if (token === "TRUE") return true;
     if (token === "FALSE") return false;
