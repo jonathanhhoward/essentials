@@ -74,6 +74,8 @@ describe("boolean calculator", () => {
       ["FALSE AND (TRUE OR FALSE)", false],
       ["NOT (FALSE AND FALSE)", true],
       ["(TRUE AND (TRUE OR FALSE) AND FALSE)", false],
+      ["NOT ((TRUE OR FALSE) AND FALSE)", true],
+      ["NOT (TRUE OR (FALSE AND FALSE))", false],
     ])("should evaluate '%s' as %s", (expression, expected) => {
       expect(calculate(expression)).toBe(expected);
     });
