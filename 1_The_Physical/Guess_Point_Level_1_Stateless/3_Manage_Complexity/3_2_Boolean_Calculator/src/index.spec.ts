@@ -72,5 +72,9 @@ describe("boolean calculator", () => {
     it("should evaluate '(TRUE OR FALSE) AND FALSE' as false", () => {
       expect(calculate("(TRUE OR FALSE) AND FALSE")).toBe(false);
     });
+
+    it("should throw if ')' is missing", () => {
+      expect(() => calculate("(TRUE")).toThrow("')' expected");
+    });
   });
 });

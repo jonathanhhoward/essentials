@@ -49,6 +49,7 @@ export function calculate(expr: string): boolean {
     if (token === "(") {
       const literal = expression();
       if (tokens.shift() === ")") return literal;
+      throw Error("')' expected");
     }
     if (token === "NOT") return !primary();
     if (token === "TRUE") return true;
