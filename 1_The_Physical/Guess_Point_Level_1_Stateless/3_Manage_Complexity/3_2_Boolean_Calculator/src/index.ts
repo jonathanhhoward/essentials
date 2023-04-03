@@ -11,10 +11,26 @@
  *      'TRUE' | 'FALSE'
  */
 
+class TokenBuffer {
+  private buffer: string[];
+
+  constructor(expr: string) {
+    this.buffer = expr.replace(/\(/g, "( ").replace(/\)/g, " )").split(" ");
+  }
+
+  next(): string | undefined {
+    return this.buffer.shift();
+  }
+
+  replace(token: string | undefined): void {
+    token && this.buffer.unshift(token);
+  }
+}
+
 export function calculate(expr: string): boolean {
-  const tokens = getTokenList(expr);
+  const tokens = new TokenBuffer(expr);
   const result = expression();
-  const token = getToken(tokens);
+  const token = tokens.next();
   if (token === ")") throw Error("')' unmatched");
   if (token) throw Error("invalid expression");
   return result;
@@ -22,12 +38,12 @@ export function calculate(expr: string): boolean {
   function expression() {
     let left = term();
     while (true) {
-      const token = getToken(tokens);
+      const token = tokens.next();
       if (token === "OR") {
         const right = term();
         left ||= right;
       } else {
-        putBack(tokens, token);
+        tokens.replace(token);
         return left;
       }
     }
@@ -36,22 +52,22 @@ export function calculate(expr: string): boolean {
   function term() {
     let left = primary();
     while (true) {
-      const token = getToken(tokens);
+      const token = tokens.next();
       if (token === "AND") {
         const right = primary();
         left &&= right;
       } else {
-        putBack(tokens, token);
+        tokens.replace(token);
         return left;
       }
     }
   }
 
   function primary(): boolean {
-    const token = getToken(tokens);
+    const token = tokens.next();
     if (token === "(") {
       const literal = expression();
-      if (getToken(tokens) === ")") return literal;
+      if (tokens.next() === ")") return literal;
       throw Error("')' expected");
     }
     if (token === "NOT") return !primary();
@@ -59,16 +75,4 @@ export function calculate(expr: string): boolean {
     if (token === "FALSE") return false;
     throw TypeError("invalid literal");
   }
-}
-
-function getTokenList(expr: string): string[] {
-  return expr.replace(/\(/g, "( ").replace(/\)/g, " )").split(" ");
-}
-
-function getToken(tokens: string[]): string | undefined {
-  return tokens.shift();
-}
-
-function putBack(tokens: string[], token: string | undefined): void {
-  token && tokens.unshift(token);
 }
