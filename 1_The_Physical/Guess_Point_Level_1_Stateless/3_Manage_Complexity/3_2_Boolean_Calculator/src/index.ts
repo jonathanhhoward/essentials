@@ -11,18 +11,23 @@
  *      'TRUE' | 'FALSE'
  */
 
+type Token = "TRUE" | "FALSE" | "OR" | "AND" | "NOT" | "(" | ")";
+
 class TokenBuffer {
-  private buffer: string[];
+  private buffer: Token[];
 
   constructor(expr: string) {
-    this.buffer = expr.replace(/\(/g, "( ").replace(/\)/g, " )").split(" ");
+    this.buffer = expr
+      .replace(/\(/g, "( ")
+      .replace(/\)/g, " )")
+      .split(" ") as Token[];
   }
 
-  next(): string | undefined {
+  next(): Token | undefined {
     return this.buffer.shift();
   }
 
-  replace(token: string | undefined): void {
+  replace(token: Token | undefined): void {
     token && this.buffer.unshift(token);
   }
 }
