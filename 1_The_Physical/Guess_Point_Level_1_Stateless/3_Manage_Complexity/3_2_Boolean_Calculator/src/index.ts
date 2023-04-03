@@ -78,6 +78,6 @@ export function calculate(expr: string): boolean {
     if (token === "NOT") return !primary();
     if (token === "TRUE") return true;
     if (token === "FALSE") return false;
-    throw TypeError("invalid literal");
+    throw Error("invalid literal");
   }
 }
