@@ -13,8 +13,10 @@
 
 export function calculate(expr: string): boolean {
   const tokens = expr.replace(/\(/g, "( ").replace(/\)/g, " )").split(" ");
-
-  return expression();
+  const result = expression();
+  const token = tokens.shift();
+  if (token === ")") throw Error("')' unmatched");
+  return result;
 
   function expression() {
     let left = term();

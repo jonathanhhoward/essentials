@@ -83,5 +83,9 @@ describe("boolean calculator", () => {
     it("should throw if ')' is missing", () => {
       expect(() => calculate("(TRUE")).toThrow("')' expected");
     });
+
+    it("should throw if '(' is missing", () => {
+      expect(() => calculate("TRUE)")).toThrow("')' unmatched");
+    });
   });
 });
