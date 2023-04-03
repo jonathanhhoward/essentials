@@ -40,7 +40,7 @@ export function calculate(expr: string): boolean {
   if (token) throw Error("invalid expression");
   return result;
 
-  function expression() {
+  function expression(): boolean {
     let left = term();
     while (true) {
       const token = tokens.next();
@@ -54,7 +54,7 @@ export function calculate(expr: string): boolean {
     }
   }
 
-  function term() {
+  function term(): boolean {
     let left = primary();
     while (true) {
       const token = tokens.next();
