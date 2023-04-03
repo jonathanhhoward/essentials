@@ -51,6 +51,10 @@ describe("boolean calculator", () => {
     ])("should evaluate '%s' as %s", (expression, expected) => {
       expect(calculate(expression)).toBe(expected);
     });
+
+    it("should throw if expression is invalid", () => {
+      expect(() => calculate("TRUE YES TRUE")).toThrow("invalid expression");
+    });
   });
 
   describe("'OR' combined with 'AND'", () => {

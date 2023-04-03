@@ -16,6 +16,7 @@ export function calculate(expr: string): boolean {
   const result = expression();
   const token = tokens.shift();
   if (token === ")") throw Error("')' unmatched");
+  if (token) throw Error("invalid expression");
   return result;
 
   function expression() {
