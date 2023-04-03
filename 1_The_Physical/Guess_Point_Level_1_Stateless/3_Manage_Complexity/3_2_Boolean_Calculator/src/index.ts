@@ -12,9 +12,9 @@
  */
 
 export function calculate(expr: string): boolean {
-  const tokens = expr.replace(/\(/g, "( ").replace(/\)/g, " )").split(" ");
+  const tokens = getTokenList(expr);
   const result = expression();
-  const token = tokens.shift();
+  const token = getToken(tokens);
   if (token === ")") throw Error("')' unmatched");
   if (token) throw Error("invalid expression");
   return result;
@@ -22,12 +22,12 @@ export function calculate(expr: string): boolean {
   function expression() {
     let left = term();
     while (true) {
-      const token = tokens.shift();
+      const token = getToken(tokens);
       if (token === "OR") {
         const right = term();
         left ||= right;
       } else {
-        token && tokens.unshift(token);
+        putBack(tokens, token);
         return left;
       }
     }
@@ -36,22 +36,22 @@ export function calculate(expr: string): boolean {
   function term() {
     let left = primary();
     while (true) {
-      const token = tokens.shift();
+      const token = getToken(tokens);
       if (token === "AND") {
         const right = primary();
         left &&= right;
       } else {
-        token && tokens.unshift(token);
+        putBack(tokens, token);
         return left;
       }
     }
   }
 
   function primary(): boolean {
-    const token = tokens.shift();
+    const token = getToken(tokens);
     if (token === "(") {
       const literal = expression();
-      if (tokens.shift() === ")") return literal;
+      if (getToken(tokens) === ")") return literal;
       throw Error("')' expected");
     }
     if (token === "NOT") return !primary();
@@ -59,4 +59,16 @@ export function calculate(expr: string): boolean {
     if (token === "FALSE") return false;
     throw TypeError("invalid literal");
   }
+}
+
+function getTokenList(expr: string): string[] {
+  return expr.replace(/\(/g, "( ").replace(/\)/g, " )").split(" ");
+}
+
+function getToken(tokens: string[]): string | undefined {
+  return tokens.shift();
+}
+
+function putBack(tokens: string[], token: string | undefined): void {
+  token && tokens.unshift(token);
 }
